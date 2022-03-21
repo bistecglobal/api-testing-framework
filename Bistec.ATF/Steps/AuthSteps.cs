@@ -14,10 +14,12 @@ namespace Bistec.ATF.Steps
         private string password;
         private HttpResponseMessage response;
         private readonly HttpClient client;
+        private readonly TokenResponse tokenResponse;
 
-        public AuthSteps(HttpHelper httpHelper)
+        public AuthSteps(HttpHelper httpHelper, TokenResponse tokenResponse)
         {
             this.client = httpHelper.GetClient();
+            this.tokenResponse = tokenResponse;
         }
 
 
@@ -50,20 +52,21 @@ namespace Bistec.ATF.Steps
                 extra = username
             });
 
+            var jsonData = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            tokenResponse.AccessToken = jsonData.AccessToken;
+
         }
 
         [Then(@"response should have (.*) status code")]
         public async Task ThenResponseShouldHaveStatusCodeAsync(int code)
         {
-
             ((int)response.StatusCode).Should().Be(code);
         }
 
         [Then(@"response should have a valid access_token")]
         public async Task ThenResponseShouldHaveAValidAccessTokenAsync()
         {
-            var jsonData = await response.Content.ReadFromJsonAsync<TokenResponse>();
-            jsonData.AccessToken.Should().NotBeNullOrEmpty();
+            tokenResponse.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [When(@"Login admin api is called")]
@@ -74,6 +77,9 @@ namespace Bistec.ATF.Steps
                 password = password,
                 username = username,
             });
+
+            var jsonData = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            tokenResponse.AccessToken = jsonData.AccessToken;
 
         }
 
@@ -88,6 +94,9 @@ namespace Bistec.ATF.Steps
                 extra = username
             });
             response.EnsureSuccessStatusCode();
+
+            var jsonData = await response.Content.ReadFromJsonAsync<TokenResponse>();
+            tokenResponse.AccessToken = jsonData.AccessToken;
         }
     }
 }
