@@ -59,5 +59,28 @@ namespace Bistec.ATF.Steps
             jsonData.AccessToken.Should().NotBeNullOrEmpty();
         }
 
+        [When(@"Login admin api is called")]
+        public async Task WhenLoginAdminApiIsCalledAsync()
+        {
+            response = await client.PostAsJsonAsync("admin/login", new LoginRequest
+            {
+                password = password,
+                username = username,
+            });
+
+        }
+
+        [Given(@"A new admin is created with password (.*)")]
+        public async Task GivenANewAdminIsCreatedWithPasswordPassAsync(string password)
+        {
+            username = Transformations.GenerateName(10);
+            response = await client.PostAsJsonAsync("admin", new CreateUserRequest
+            {
+                password = password,
+                username = username,
+                extra = username
+            });
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

@@ -9,7 +9,14 @@ namespace Bistec.ATF.Steps
         [StepArgumentTransformation]
         public RandomisedValue ToRandomisedValue(string initialInput)
         {
-            return new RandomisedValue { StringValue = GenerateName(10) };
+            if (initialInput == "$$randomstring")
+            {
+                return new RandomisedValue { StringValue = GenerateName(10) };
+            }
+            else
+            {
+                return new RandomisedValue { StringValue = GenerateName(10) };
+            }
         }
 
         public static string GenerateName(int len)
