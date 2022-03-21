@@ -30,7 +30,14 @@ namespace Bistec.ATF.Steps
         [Given(@"Admin password is (.*)")]
         public void GivenAdminPasswordIsPass(string password)
         {
-            this.password = password;
+            if (password == "<null>")
+            {
+                password = string.Empty;
+            }
+            else
+            {
+                this.password = password;
+            }
         }
 
         [When(@"Create admin api is called")]
@@ -42,13 +49,13 @@ namespace Bistec.ATF.Steps
                 username = username,
                 extra = username
             });
-           
+
         }
 
         [Then(@"response should have (.*) status code")]
         public async Task ThenResponseShouldHaveStatusCodeAsync(int code)
         {
-            
+
             ((int)response.StatusCode).Should().Be(code);
         }
 

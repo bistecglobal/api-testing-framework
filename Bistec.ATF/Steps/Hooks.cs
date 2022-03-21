@@ -1,6 +1,8 @@
 ﻿using BoDi;
 using Microsoft.Extensions.Configuration;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
+using TechTalk.SpecFlow.Assist.ValueRetrievers;
 
 namespace Bistec.ATF.Steps
 {
@@ -33,6 +35,8 @@ namespace Bistec.ATF.Steps
             //TODO: implement logic that has to run before executing each scenario
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             objectContainer.RegisterInstanceAs<IConfiguration>(config);
+
+            Service.Instance.ValueRetrievers.Register(new NullValueRetriever("<null>"));
         }
 
         [AfterScenario]
