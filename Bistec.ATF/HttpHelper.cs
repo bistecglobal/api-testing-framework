@@ -10,6 +10,7 @@ namespace Bistec.ATF
     {
         private readonly TokenResponse tokenResponse;
         private HttpClient client;
+        private HttpResponseMessage? response;
 
         public HttpHelper(IConfiguration configuration, TokenResponse tokenResponse)
         {
@@ -27,7 +28,7 @@ namespace Bistec.ATF
             return client;
         }
 
-        public async Task<TResponse?> PostJsonAsync<TResponse, TRequest>(string url, TRequest data)
+        public async Task<HttpResponseMessage> PostJsonAsync<TRequest>(string url, TRequest data)
         {
             if(client == null)
             {
@@ -36,15 +37,46 @@ namespace Bistec.ATF
 
             client.DefaultRequestHeaders.Clear();
 
-            if (string.IsNullOrEmpty(tokenResponse.AccessToken))
+            if (!string.IsNullOrEmpty(tokenResponse.AccessToken))
             {
-                client.DefaultRequestHeaders.Add("Authorization", tokenResponse.AccessToken);
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenResponse.AccessToken}");
             }
 
-            var response = await client.PostAsJsonAsync(url, data);
-            var jsonData = await response.Content.ReadFromJsonAsync<TResponse>();
+            response = await client.PostAsJsonAsync(url, data);
 
-            return jsonData;
+            return response;
+        }
+
+        public async Task<HttpResponseMessage?> GetResponseAsync(string url)
+        {
+            if (client == null)
+            {
+                client = GetClient();
+            }
+
+            client.DefaultRequestHeaders.Clear();
+
+            if (!string.IsNullOrEmpty(tokenResponse.AccessToken))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {tokenResponse.AccessToken}");
+            }
+
+            response = await client.GetAsync(url);
+
+            return response;
+        }
+
+        public int GetStatusCode()
+        {
+            if(response != null)
+                return (int)response.StatusCode;
+
+            return 0;
+        }
+
+        public HttpResponseMessage? GetResponse()
+        {           
+            return response;
         }
     }
 }

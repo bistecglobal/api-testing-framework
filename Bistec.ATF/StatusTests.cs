@@ -18,6 +18,7 @@ namespace Bistec.ATF
 
             config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             services.AddSingleton<IConfiguration>(sp => config);
+            services.AddSingleton<Models.TokenResponse>();
             services.AddSingleton<HttpHelper>();
             app = services.BuildServiceProvider();
         }

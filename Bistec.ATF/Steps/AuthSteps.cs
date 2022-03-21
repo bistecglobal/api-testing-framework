@@ -14,11 +14,12 @@ namespace Bistec.ATF.Steps
         private string password;
         private HttpResponseMessage response;
         private readonly HttpClient client;
+        private readonly HttpHelper httpHelper;
         private readonly TokenResponse tokenResponse;
 
         public AuthSteps(HttpHelper httpHelper, TokenResponse tokenResponse)
         {
-            this.client = httpHelper.GetClient();
+            this.httpHelper = httpHelper;
             this.tokenResponse = tokenResponse;
         }
 
@@ -45,7 +46,7 @@ namespace Bistec.ATF.Steps
         [When(@"Create admin api is called")]
         public async Task WhenCreateAdminApiIsCalledAsync()
         {
-            response = await client.PostAsJsonAsync("admin", new CreateUserRequest
+            response = await httpHelper.PostJsonAsync("admin", new CreateUserRequest
             {
                 password = password,
                 username = username,
@@ -60,7 +61,7 @@ namespace Bistec.ATF.Steps
         [Then(@"response should have (.*) status code")]
         public async Task ThenResponseShouldHaveStatusCodeAsync(int code)
         {
-            ((int)response.StatusCode).Should().Be(code);
+            httpHelper.GetStatusCode().Should().Be(code);
         }
 
         [Then(@"response should have a valid access_token")]
@@ -72,7 +73,7 @@ namespace Bistec.ATF.Steps
         [When(@"Login admin api is called")]
         public async Task WhenLoginAdminApiIsCalledAsync()
         {
-            response = await client.PostAsJsonAsync("admin/login", new LoginRequest
+            response = await httpHelper.PostJsonAsync("admin/login", new LoginRequest
             {
                 password = password,
                 username = username,
@@ -87,7 +88,7 @@ namespace Bistec.ATF.Steps
         public async Task GivenANewAdminIsCreatedWithPasswordPassAsync(string password)
         {
             username = Transformations.GenerateName(10);
-            response = await client.PostAsJsonAsync("admin", new CreateUserRequest
+            response = await httpHelper.PostJsonAsync("admin", new CreateUserRequest
             {
                 password = password,
                 username = username,

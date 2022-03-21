@@ -1,4 +1,5 @@
-﻿using BoDi;
+﻿using Bistec.ATF.Models;
+using BoDi;
 using Microsoft.Extensions.Configuration;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -35,6 +36,7 @@ namespace Bistec.ATF.Steps
             //TODO: implement logic that has to run before executing each scenario
             var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             objectContainer.RegisterInstanceAs<IConfiguration>(config);
+            objectContainer.RegisterInstanceAs<TokenResponse>(new TokenResponse());
 
             Service.Instance.ValueRetrievers.Register(new NullValueRetriever("<null>"));
         }
