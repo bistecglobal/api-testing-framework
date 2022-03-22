@@ -13,7 +13,6 @@ namespace Bistec.ATF.Steps
         private string username;
         private string password;
         private HttpResponseMessage response;
-        private readonly HttpClient client;
         private readonly HttpHelper httpHelper;
         private readonly TokenResponse tokenResponse;
 
@@ -59,13 +58,13 @@ namespace Bistec.ATF.Steps
         }
 
         [Then(@"response should have (.*) status code")]
-        public async Task ThenResponseShouldHaveStatusCodeAsync(int code)
+        public void ThenResponseShouldHaveStatusCodeAsync(int code)
         {
             httpHelper.GetStatusCode().Should().Be(code);
         }
 
         [Then(@"response should have a valid access_token")]
-        public async Task ThenResponseShouldHaveAValidAccessTokenAsync()
+        public void ThenResponseShouldHaveAValidAccessTokenAsync()
         {
             tokenResponse.AccessToken.Should().NotBeNullOrEmpty();
         }
