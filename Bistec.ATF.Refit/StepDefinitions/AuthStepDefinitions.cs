@@ -10,25 +10,25 @@ namespace Bistec.ATF.Refit.StepDefinitions
     [Binding]
     public class AuthStepDefinitions : RefitFixture<IAuthApi>
     {
-        private readonly ScenarioContext senarioContext;
+        private readonly ScenarioContext scenarioContext;
         private readonly SettingsFixture settings;
 
-        public AuthStepDefinitions(ScenarioContext senarioContext, SettingsFixture settings)
+        public AuthStepDefinitions(ScenarioContext scenarioContext, SettingsFixture settings)
         {
-            this.senarioContext = senarioContext;
+            this.scenarioContext = scenarioContext;
             this.settings = settings;
         }
 
         [Given(@"Admin username is (.*)")]
-        public void GivenAdminUsername(RandomisedValue randomisedValue)
+        public void GivenAdminUsername(RandomisedValue randomizedValue)
         {
-            senarioContext.Add(Constants.USERNAME_KEY, randomisedValue.StringValue);
+            scenarioContext.Add(Constants.USERNAME_KEY, randomizedValue.StringValue);
         }
 
         [Given(@"Admin password is (.*)")]
         public void GivenAdminPasswordIsPass(string password)
         {
-            senarioContext.Add(Constants.PASSWORD_KEY, password);
+            scenarioContext.Add(Constants.PASSWORD_KEY, password);
         }
 
         [When(@"Create admin api is called")]
@@ -37,19 +37,19 @@ namespace Bistec.ATF.Refit.StepDefinitions
             var token = await GetRestClient(settings.AppSettings.BaseAddress)
                 .CreateAdmin(new CreateUserRequest
             {
-                username = senarioContext.Get<string>(Constants.USERNAME_KEY),
-                password = senarioContext.Get<string>(Constants.PASSWORD_KEY),
-                extra = senarioContext.Get<string>(Constants.USERNAME_KEY)
+                username = scenarioContext.Get<string>(Constants.USERNAME_KEY),
+                password = scenarioContext.Get<string>(Constants.PASSWORD_KEY),
+                extra = scenarioContext.Get<string>(Constants.USERNAME_KEY)
             });
 
-            senarioContext.Add(Constants.ACCESS_TOKEN_KEY, token?.Content?.AccessToken);
-            senarioContext.Add(Constants.STATUS_CODE_KEY, token?.StatusCode);
+            scenarioContext.Add(Constants.ACCESS_TOKEN_KEY, token?.Content?.AccessToken);
+            scenarioContext.Add(Constants.STATUS_CODE_KEY, token?.StatusCode);
         }
 
         [Then(@"Status code should be (.*)")]
         public void ThenStatusCodeShouldBe(int status)
         {
-            var code = (int)senarioContext.Get<HttpStatusCode>(Constants.STATUS_CODE_KEY);
+            var code = (int)scenarioContext.Get<HttpStatusCode>(Constants.STATUS_CODE_KEY);
             status.Should().Be(code);
         }
 
@@ -57,7 +57,7 @@ namespace Bistec.ATF.Refit.StepDefinitions
         [Then(@"response should have a valid access_token")]
         public void ThenResponseShouldHaveAValidAccess_Token()
         {
-            var token = senarioContext.Get<string>(Constants.ACCESS_TOKEN_KEY);
+            var token = scenarioContext.Get<string>(Constants.ACCESS_TOKEN_KEY);
             token.Should().NotBeNullOrEmpty();
         }
     }
