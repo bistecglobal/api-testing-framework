@@ -1,6 +1,8 @@
 ﻿Feature: Employees
 
-Test CRUD operations for employee api
+As an admin
+I can add or remove employees
+So that I can manage company
 
 @employee @messured
 Scenario: Get list of Employees

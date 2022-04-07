@@ -1,6 +1,8 @@
 ﻿Feature: Auth
 
-Call authentication related apis
+As a user,
+I can create an admin
+so that I can use the auth token for employee apis
 
 @smoke @auth
 Scenario: Create Admin
