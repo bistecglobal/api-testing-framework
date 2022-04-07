@@ -2,7 +2,7 @@
 using System;
 using TechTalk.SpecFlow;
 
-namespace Bistec.ATF.Refit.StepDefinitions
+namespace Bistec.ATF.Refit.Support
 {
     [Binding]
     internal class Transformations

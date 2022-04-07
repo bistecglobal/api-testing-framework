@@ -18,7 +18,8 @@ namespace Bistec.ATF.Refit.Fixtures
 
             AppSettings = new AppSettings
             {
-                BaseAddress = configuration["baseUrl"]
+                BaseAddress = configuration["baseUrl"],
+                MinimumResponseTime = int.Parse(configuration["minimumResponseTime"])
             };
         }
 

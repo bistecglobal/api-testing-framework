@@ -84,10 +84,12 @@ namespace Bistec.ATF.Refit.Features
         [Xunit.TraitAttribute("FeatureTitle", "Employees")]
         [Xunit.TraitAttribute("Description", "Get list of Employees")]
         [Xunit.TraitAttribute("Category", "employee")]
+        [Xunit.TraitAttribute("Category", "messured")]
         public void GetListOfEmployees()
         {
             string[] tagsOfScenario = new string[] {
-                    "employee"};
+                    "employee",
+                    "messured"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get list of Employees", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
