@@ -40,4 +40,3 @@ steps:
   inputs:
     generatorSource: 'FeatureFolder'
     projectFilePath: 'Bistec.ATF.Refit\Features'
-    testExecutionJson: '**\TestExecution.json'
