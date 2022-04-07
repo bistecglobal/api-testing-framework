@@ -8,7 +8,7 @@ namespace Bistec.ATF.Refit.Fixtures
 
         public SettingsFixture()
         {
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIONMENT");
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false)
