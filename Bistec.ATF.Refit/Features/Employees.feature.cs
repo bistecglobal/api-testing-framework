@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Bistec.ATF.Features
+namespace Bistec.ATF.Refit.Features
 {
     using TechTalk.SpecFlow;
     using System;
@@ -19,7 +19,7 @@ namespace Bistec.ATF.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class StatusFeature : object, Xunit.IClassFixture<StatusFeature.FixtureData>, System.IDisposable
+    public partial class EmployeesFeature : object, Xunit.IClassFixture<EmployeesFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace Bistec.ATF.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Status.feature"
+#line 1 "Employees.feature"
 #line hidden
         
-        public StatusFeature(StatusFeature.FixtureData fixtureData, Bistec_ATF_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public EmployeesFeature(EmployeesFeature.FixtureData fixtureData, Bistec_ATF_Refit_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace Bistec.ATF.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Status", "Liveness Check of the server", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Employees", "Test CRUD operations for employee api", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,16 +80,18 @@ namespace Bistec.ATF.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Server is running")]
-        [Xunit.TraitAttribute("FeatureTitle", "Status")]
-        [Xunit.TraitAttribute("Description", "Server is running")]
-        [Xunit.TraitAttribute("Category", "smoke")]
-        public void ServerIsRunning()
+        [Xunit.SkippableFactAttribute(DisplayName="Get list of Employees")]
+        [Xunit.TraitAttribute("FeatureTitle", "Employees")]
+        [Xunit.TraitAttribute("Description", "Get list of Employees")]
+        [Xunit.TraitAttribute("Category", "employee")]
+        [Xunit.TraitAttribute("Category", "messured")]
+        public void GetListOfEmployees()
         {
             string[] tagsOfScenario = new string[] {
-                    "smoke"};
+                    "employee",
+                    "messured"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Server is running", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get list of Employees", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,13 +103,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 7
- testRunner.Given("status api is called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("A new admin is created with username $$randomstring and password pass123", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.When("status is checked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("Get Employee list api is called", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
- testRunner.Then("status should be ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Status code should be 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -120,12 +122,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                StatusFeature.FeatureSetup();
+                EmployeesFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                StatusFeature.FeatureTearDown();
+                EmployeesFeature.FeatureTearDown();
             }
         }
     }

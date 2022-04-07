@@ -1,4 +1,4 @@
-﻿namespace Bistec.ATF.Steps
+﻿namespace Bistec.ATF.Refit.Models
 {
     public class RandomisedValue
     {

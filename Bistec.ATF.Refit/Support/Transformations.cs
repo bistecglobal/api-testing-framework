@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Bistec.ATF.Refit.Models;
+using System;
 using TechTalk.SpecFlow;
 
-namespace Bistec.ATF.Steps
+namespace Bistec.ATF.Refit.Support
 {
     [Binding]
     internal class Transformations
@@ -15,7 +16,7 @@ namespace Bistec.ATF.Steps
             }
             else
             {
-                return new RandomisedValue { StringValue = GenerateName(10) };
+                return new RandomisedValue { StringValue = initialInput };
             }
         }
 

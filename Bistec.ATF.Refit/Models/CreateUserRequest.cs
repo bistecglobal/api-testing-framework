@@ -1,4 +1,4 @@
-﻿namespace Bistec.ATF
+﻿namespace Bistec.ATF.Refit.Models
 {
     public class CreateUserRequest
     {

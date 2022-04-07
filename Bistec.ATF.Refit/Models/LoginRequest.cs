@@ -1,4 +1,4 @@
-﻿namespace Bistec.ATF.Models
+﻿namespace Bistec.ATF.Refit.Models
 {
     public class LoginRequest
     {

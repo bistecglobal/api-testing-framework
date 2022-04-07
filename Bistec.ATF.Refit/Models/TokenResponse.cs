@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Bistec.ATF.Models
+namespace Bistec.ATF.Refit.Models
 {
     public class TokenResponse
     {
