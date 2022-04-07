@@ -1,13 +1,11 @@
 using Bistec.ATF.Refit.Apis;
 using Bistec.ATF.Refit.Fixtures;
 using Bistec.ATF.Refit.Models;
-using System;
-using System.Net;
-using TechTalk.SpecFlow;
 
 namespace Bistec.ATF.Refit.StepDefinitions
 {
     [Binding]
+    [Collection("Settings collection")]
     public class AuthStepDefinitions : RefitFixture<IAuthApi>
     {
         private readonly ScenarioContext scenarioContext;
@@ -34,7 +32,7 @@ namespace Bistec.ATF.Refit.StepDefinitions
         [When(@"Create admin api is called")]
         public async Task WhenCreateAdminApiIsCalled()
         {
-            var token = await GetRestClient(settings.AppSettings.BaseAddress)
+            var token = await GetRestClient(settings.AppSettings.BaseAddress, scenarioContext)
                 .CreateAdmin(new CreateUserRequest
             {
                 username = scenarioContext.Get<string>(Constants.USERNAME_KEY),
@@ -45,20 +43,20 @@ namespace Bistec.ATF.Refit.StepDefinitions
             scenarioContext.Add(Constants.ACCESS_TOKEN_KEY, token?.Content?.AccessToken);
             scenarioContext.Add(Constants.STATUS_CODE_KEY, token?.StatusCode);
         }
-
-        [Then(@"Status code should be (.*)")]
-        public void ThenStatusCodeShouldBe(int status)
+        
+        [Given(@"A new admin is created with username (.*) and password (.*)")]
+        public async Task GivenANewAdminIsCreated(RandomisedValue randomizedValue, string password)
         {
-            var code = (int)scenarioContext.Get<HttpStatusCode>(Constants.STATUS_CODE_KEY);
-            status.Should().Be(code);
-        }
+            var token = await GetRestClient(settings.AppSettings.BaseAddress, scenarioContext)
+                .CreateAdmin(new CreateUserRequest
+                {
+                    username = randomizedValue.StringValue,
+                    password = password,
+                    extra = randomizedValue.StringValue
+                });
 
-
-        [Then(@"response should have a valid access_token")]
-        public void ThenResponseShouldHaveAValidAccess_Token()
-        {
-            var token = scenarioContext.Get<string>(Constants.ACCESS_TOKEN_KEY);
-            token.Should().NotBeNullOrEmpty();
+            scenarioContext.Add(Constants.ACCESS_TOKEN_KEY, token?.Content?.AccessToken);
+            scenarioContext.Add(Constants.STATUS_CODE_KEY, token?.StatusCode);
         }
     }
 }

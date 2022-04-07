@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\Auth.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\Employees.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,11 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Support\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Features\Auth.feature.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Features\Employees.feature.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -41,6 +41,10 @@
 
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\Auth.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\Employees.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
